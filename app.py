@@ -61,7 +61,11 @@ data = data.reindex(columns=['gender', 'absen', 'n_sikap', 'organisasi', 'ekstra
                              'status_nikah', 'pendidikan_ayah', 'pekerjaan_ayah', 'gaji_ayah', 'pendidikan_ibu', 
                              'pekerjaan_ibu', 'gaji_ibu', 'beasiswa', 'jml_keluarga', 'status_rumah'], fill_value=0)
 
+# Mapping hasil prediksi ke teks yang lebih informatif
+hasil_mapping = {0: "Hasil Belajar Kurang (Perlu Perbaikan)", 1: "Hasil Belajar Baik"}
+
 # Tombol Prediksi
 if st.button("Prediksi"):
     pred_rf = rf_model.predict(data)[0]
-    st.write(f"**Prediksi Random Forest:** {pred_rf}")
+    hasil_teks = hasil_mapping[pred_rf]  # Konversi angka ke teks
+    st.write(f"**Prediksi Random Forest:** {hasil_teks}")
