@@ -35,7 +35,28 @@ data = pd.DataFrame([[gender, absen, n_sikap, organisasi, ekstra, asal_smp, tmpt
                              'status_nikah', 'pendidikan_ayah', 'pekerjaan_ayah', 'gaji_ayah', 'pendidikan_ibu', 
                              'pekerjaan_ibu', 'gaji_ibu', 'beasiswa', 'jml_keluarga', 'status_rumah'])
 
-# Pastikan fitur sesuai dengan model yang telah dilatih
+# Konversi nilai kategorikal ke numerik (sesuai dengan yang digunakan saat training)
+mapping = {
+    "gender": {"Laki-laki": 0, "Perempuan": 1},
+    "n_sikap": {"A": 0, "B": 1, "C": 2},
+    "organisasi": {"Tidak": 0, "Ya": 1},
+    "ekstra": {"Tidak": 0, "Ya": 1},
+    "asal_smp": {"Negeri": 0, "Swasta": 1},
+    "tmpt_tinggal": {"Kota": 0, "Desa": 1},
+    "status_nikah": {"Menikah": 0, "Cerai": 1, "Wafat": 2},
+    "pendidikan_ayah": {"SD": 0, "SMP": 1, "SMA": 2, "S1": 3, "S2": 4, "S3": 5},
+    "pendidikan_ibu": {"SD": 0, "SMP": 1, "SMA": 2, "S1": 3, "S2": 4, "S3": 5},
+    "pekerjaan_ayah": {"PNS": 0, "Swasta": 1, "Wirausaha": 2, "Tidak Bekerja": 3},
+    "pekerjaan_ibu": {"PNS": 0, "Swasta": 1, "Wirausaha": 2, "Tidak Bekerja": 3},
+    "beasiswa": {"Tidak": 0, "Ya": 1},
+    "status_rumah": {"Milik Sendiri": 0, "Sewa": 1, "Menumpang": 2},
+}
+
+# Terapkan mapping ke dataframe
+for col, mapping_values in mapping.items():
+    data[col] = data[col].map(mapping_values)
+
+# Pastikan fitur sesuai dengan model
 data = data.reindex(columns=['gender', 'absen', 'n_sikap', 'organisasi', 'ekstra', 'asal_smp', 'tmpt_tinggal', 
                              'status_nikah', 'pendidikan_ayah', 'pekerjaan_ayah', 'gaji_ayah', 'pendidikan_ibu', 
                              'pekerjaan_ibu', 'gaji_ibu', 'beasiswa', 'jml_keluarga', 'status_rumah'], fill_value=0)
