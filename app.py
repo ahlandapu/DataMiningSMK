@@ -62,7 +62,7 @@ data = data.reindex(columns=['gender', 'absen', 'n_sikap', 'organisasi', 'ekstra
                              'pekerjaan_ibu', 'gaji_ibu', 'beasiswa', 'jml_keluarga', 'status_rumah'], fill_value=0)
 
 # Mapping hasil prediksi ke teks yang lebih informatif
-hasil_mapping = {0: "Hasil Belajar Kurang (Perlu Perbaikan)", 1: "Hasil Belajar Baik"}
+hasil_mapping = {1: "Hasil Belajar Kurang (Perlu Perbaikan)", 0: "Hasil Belajar Baik"}
 
 # Tombol Prediksi
 if st.button("Prediksi"):
