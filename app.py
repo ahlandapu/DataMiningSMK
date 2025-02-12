@@ -3,6 +3,7 @@ import pandas as pd
 import joblib
 
 # Load model
+dt_model = joblib.load("decision_tree_model.pkl")
 rf_model = joblib.load("random_forest_model.pkl")
 
 # Judul aplikasi
@@ -65,7 +66,18 @@ data = data.reindex(columns=['gender', 'absen', 'n_sikap', 'organisasi', 'ekstra
 hasil_mapping = {1: "Hasil Belajar Kurang (Perlu Perbaikan)", 0: "Hasil Belajar Baik"}
 
 # Tombol Prediksi
+#if st.button("Prediksi"):
+#    pred_rf = rf_model.predict(data)[0]
+#    hasil_teks = hasil_mapping[pred_rf]  # Konversi angka ke teks
+#    st.write(f"**Prediksi Random Forest:** {hasil_teks}")
+
+# Tombol Prediksi
 if st.button("Prediksi"):
+    pred_dt = dt_model.predict(data)[0]
     pred_rf = rf_model.predict(data)[0]
-    hasil_teks = hasil_mapping[pred_rf]  # Konversi angka ke teks
-    st.write(f"**Prediksi Random Forest:** {hasil_teks}")
+
+    hasil_dt = hasil_mapping[pred_dt]
+    hasil_rf = hasil_mapping[pred_rf]
+
+    st.write(f"**Prediksi Decision Tree:** {hasil_dt}")
+    st.write(f"**Prediksi Random Forest:** {hasil_rf}")
